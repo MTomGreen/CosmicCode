@@ -1,0 +1,7 @@
+package green.ui.window.mainwindow;
+
+import javax.swing.JFrame;
+
+public class MainPanel extends JFrame {
+
+}

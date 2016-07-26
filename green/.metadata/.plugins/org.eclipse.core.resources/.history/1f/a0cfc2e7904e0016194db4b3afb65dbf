@@ -1,0 +1,8 @@
+package green.detector;
+
+public enum EnumCluster {
+	
+	AMSTERDAM,
+	
+
+}

@@ -1,0 +1,88 @@
+package green.detector;
+
+public class Detector {
+	
+	private int stationID;
+	private String name;
+	private EnumCluster Cluster;
+	private double latitude;
+	private double longitude;
+	
+	public Detector(int ID){
+		this.stationID = ID;
+	}
+	
+	
+	
+	
+	public int getStationID(){
+		return stationID;
+	}
+	public void setStationID(int ID){
+		this.stationID = ID;
+	}
+
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+	public EnumCluster getCluster() {
+		return Cluster;
+	}
+
+
+
+
+	public void setCluster(EnumCluster cluster) {
+		Cluster = cluster;
+	}
+
+
+
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+
+
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+
+
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+	
+	public double getLatitudeInRadians(){
+		return Math.toRadians(latitude);
+	}
+	
+	public double getLongitudeInRadians(){
+		return Math.toRadians(longitude);
+	}
+
+	
+	
+}

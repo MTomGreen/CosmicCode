@@ -1,0 +1,11 @@
+package green.util;
+
+import green.detector.Detector;
+
+public class FileUtils {
+	
+	public static void getEventLogForDetector(Detector d){
+		File logFile = new File();
+	}
+
+}

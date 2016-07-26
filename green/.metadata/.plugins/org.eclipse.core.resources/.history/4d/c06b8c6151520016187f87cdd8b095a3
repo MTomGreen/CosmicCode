@@ -1,0 +1,90 @@
+package green.ui.window;
+
+import java.awt.CardLayout;
+import java.awt.Font;
+import java.awt.SystemColor;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.SpringLayout;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+
+import green.util.DateTimeUtils;
+
+@SuppressWarnings("serial")
+public class TestWindow extends JFrame {
+	
+	public JLabel lblDate = new JLabel("Date");
+	public JLabel lblTime = new JLabel("00:00:00");
+	
+	public TestWindow() {
+		setTitle("Test-Pane");
+		this.setSize(1280, 720);
+		getContentPane().setLayout(new CardLayout(0, 0));
+		
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setResizeWeight(0.02);
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		getContentPane().add(splitPane, "name_491958230787156");
+		
+		JSplitPane splitPane_1 = new JSplitPane();
+		splitPane_1.setResizeWeight(0.15);
+		splitPane.setRightComponent(splitPane_1);
+		
+		JSplitPane splitPane_2 = new JSplitPane();
+		splitPane_2.setResizeWeight(0.5);
+		splitPane_2.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		splitPane_1.setLeftComponent(splitPane_2);
+		
+		JPanel navPanel = new JPanel();
+		navPanel.setBackground(SystemColor.controlShadow);
+		splitPane_2.setLeftComponent(navPanel);
+		
+		JPanel infoPanel = new JPanel();
+		infoPanel.setBackground(SystemColor.info);
+		splitPane_2.setRightComponent(infoPanel);
+		SpringLayout sl_infoPanel = new SpringLayout();
+		infoPanel.setLayout(sl_infoPanel);
+		
+		
+		lblTime.setFont(new Font("Tahoma", Font.PLAIN, 42));
+		sl_infoPanel.putConstraint(SpringLayout.NORTH, lblTime, 10, SpringLayout.NORTH, infoPanel);
+		sl_infoPanel.putConstraint(SpringLayout.WEST, lblTime, 10, SpringLayout.WEST, infoPanel);
+		infoPanel.add(lblTime);
+		
+		lblDate.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		sl_infoPanel.putConstraint(SpringLayout.NORTH, lblDate, 6, SpringLayout.SOUTH, lblTime);
+		sl_infoPanel.putConstraint(SpringLayout.WEST, lblDate, 10, SpringLayout.WEST, infoPanel);
+		infoPanel.add(lblDate);
+		
+		JPanel mainPanel = new JPanel();
+		mainPanel.setBackground(SystemColor.textHighlight);
+		splitPane_1.setRightComponent(mainPanel);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(SystemColor.menu);
+		splitPane.setLeftComponent(panel);
+		panel.setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
+		
+		JLabel lblSomeStuffWill = new JLabel("Some stuff will go here. Menu Stuff");
+		panel.add(lblSomeStuffWill, "2, 2");
+	}
+	
+	@Override
+	public void repaint() {
+		super.repaint();
+		lblTime.setText(DateTimeUtils.getTimeInfo());
+	
+	}
+}

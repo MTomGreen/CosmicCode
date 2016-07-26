@@ -1,0 +1,28 @@
+package green.ui.window;
+
+import javax.swing.JFrame;
+import java.awt.FlowLayout;
+import javax.swing.JSplitPane;
+import net.miginfocom.swing.MigLayout;
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+import javax.swing.JInternalFrame;
+import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
+
+@SuppressWarnings("serial")
+public class TestWindow extends JFrame {
+	public TestWindow() {
+		this.setSize(1280, 720);
+		getContentPane().setLayout(new CardLayout(0, 0));
+		
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setResizeWeight(0.05);
+		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		getContentPane().add(splitPane, "name_491958230787156");
+		
+		JSplitPane splitPane_1 = new JSplitPane();
+		splitPane.setLeftComponent(splitPane_1);
+	}
+
+}

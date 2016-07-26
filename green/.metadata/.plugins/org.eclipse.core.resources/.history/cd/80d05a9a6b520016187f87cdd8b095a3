@@ -1,0 +1,10 @@
+package green.thread;
+
+public class DetectorDownloaderThread extends Thread{
+	
+	@Override
+	public void run() {
+		
+	}
+
+}

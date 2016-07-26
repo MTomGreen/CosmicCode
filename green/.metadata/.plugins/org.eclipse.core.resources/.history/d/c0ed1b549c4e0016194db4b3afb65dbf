@@ -1,0 +1,21 @@
+package green.util;
+
+import green.detector.Detector;
+
+public class MathUtils {
+	
+	//Calculate angle of primary particle
+	public void getBearingFrom(Detector a, Detector b){
+		double bearing = Math.atan2(cos(a.getLatitude()*sin(a.getLatitude())-sin(a.getLatitude()*cos(b.getLatitude()))), x);
+	}
+	
+	double cos(double angle){
+		return Math.cos(angle);
+	}
+	double sin(double angle){
+		return Math.sin(angle);
+	}
+	
+	
+
+}

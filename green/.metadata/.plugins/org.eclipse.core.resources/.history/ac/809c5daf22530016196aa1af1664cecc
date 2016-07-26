@@ -1,0 +1,64 @@
+package green.math;
+
+public class ExtTime {
+	
+	//2016-07-25+00:00:00
+	
+	public int year;
+	public int month;
+	public int day;
+	
+	public int hours;
+	public int minutes;
+	public int seconds;
+	
+	public static int WEB_FORMAT = 1;
+	
+	public String getTimeFormat(int format){
+		switch(format){
+		case 1:
+			return year+"-"+format(month)+"-"+format(day)+"+"+format(hours)+":"+format(minutes)+":"+format(seconds);
+		}
+		return null;
+	}
+	
+	
+	String format(int number){
+		if(number < 10)
+			return "0"+number;
+		else
+			return ""+number;
+	}
+
+
+	public int getYear() {
+		return year;
+	}
+
+
+	public int getMonth() {
+		return month;
+	}
+
+
+	public int getDay() {
+		return day;
+	}
+
+
+	public int getHours() {
+		return hours;
+	}
+
+
+	public int getMinutes() {
+		return minutes;
+	}
+
+
+	public int getSeconds() {
+		return seconds;
+	}
+	
+	
+}

@@ -1,0 +1,13 @@
+package green.ui.window.mainwindow;
+
+import java.awt.Color;
+
+import javax.swing.JFrame;
+
+public class SidePanel extends JPanel {
+	
+	public SidePanel() {
+		this.setBackground(new Color(5,0,0));
+	}
+
+}

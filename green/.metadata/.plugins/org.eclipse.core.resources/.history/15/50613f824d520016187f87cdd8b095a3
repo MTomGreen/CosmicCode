@@ -1,0 +1,10 @@
+package green.ui.window;
+
+import javax.swing.JFrame;
+
+public class TestWindow extends JFrame {
+	public TestWindow() {
+		this.setSize(1280, 720);
+	}
+
+}

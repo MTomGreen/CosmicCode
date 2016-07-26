@@ -1,0 +1,13 @@
+package green.operation.coincidence;
+
+import java.util.ArrayList;
+
+import green.detector.Detector;
+
+public class RayUtils {
+	
+	public static void processData(ArrayList<Detector> stations){
+		
+	}
+
+}

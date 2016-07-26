@@ -1,0 +1,22 @@
+package green.operation.coincidence;
+
+import java.util.ArrayList;
+
+import green.detector.Detector;
+
+public class RayUtils {
+	
+	public static void processData(ArrayList<Detector> stations){
+		for(Detector d : stations)
+			if(!d.hasEventData()){
+				System.out.println("Loading event data for station " + d.getStationID() + ", please wait...");
+				d.loadEventData();
+			}
+		//All stations should have complete data
+		
+		int threadsToOpen = stations.size();
+		
+		
+	}
+
+}

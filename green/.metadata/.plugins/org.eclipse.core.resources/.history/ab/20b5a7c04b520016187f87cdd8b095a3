@@ -1,0 +1,36 @@
+package green.ui.window.mainwindow;
+
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.SpringLayout;
+
+@SuppressWarnings("serial")
+public class TestWindow extends JFrame {
+	public TestWindow() {
+		SpringLayout springLayout = new SpringLayout();
+		getContentPane().setLayout(springLayout);
+		
+		JPanel panel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 319, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, panel, 194, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, -338, SpringLayout.SOUTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panel, 358, SpringLayout.WEST, getContentPane());
+		getContentPane().add(panel);
+		
+		JPanel panel_1 = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, panel_1, 319, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, panel_1, 89, SpringLayout.EAST, panel);
+		springLayout.putConstraint(SpringLayout.SOUTH, panel_1, -338, SpringLayout.SOUTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, panel_1, 235, SpringLayout.EAST, panel);
+		getContentPane().add(panel_1);
+		
+		Dimension minSize = new Dimension(400,400);
+		panel_1.setMinimumSize(minimumSize);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panel, panel_1);
+		springLayout.putConstraint(SpringLayout.NORTH, splitPane, 200, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, splitPane, 270, SpringLayout.WEST, getContentPane());
+	}
+}

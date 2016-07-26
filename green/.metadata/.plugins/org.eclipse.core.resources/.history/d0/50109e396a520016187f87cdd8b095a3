@@ -1,0 +1,11 @@
+package green.detector;
+
+public class DetectorDownloader implements Callable{
+	
+	public Detector detector;
+	
+	public void Download(){
+		detector.populateData();
+	}
+
+}

@@ -1,0 +1,38 @@
+package green.ui.window.mainwindow;
+
+import javax.swing.JFrame;
+import javax.swing.SpringLayout;
+import javax.swing.JSplitPane;
+import javax.swing.JPanel;
+import net.miginfocom.swing.MigLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+
+@SuppressWarnings("serial")
+public class TestWindow extends JFrame {
+	public TestWindow() {
+		SpringLayout springLayout = new SpringLayout();
+		getContentPane().setLayout(springLayout);
+		
+		JSplitPane splitPane = new JSplitPane();
+		springLayout.putConstraint(SpringLayout.NORTH, splitPane, 200, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, splitPane, 278, SpringLayout.WEST, getContentPane());
+		getContentPane().add(splitPane);
+		
+		JPanel panel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 94, SpringLayout.SOUTH, splitPane);
+		springLayout.putConstraint(SpringLayout.WEST, panel, 194, SpringLayout.WEST, getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, 238, SpringLayout.SOUTH, splitPane);
+		springLayout.putConstraint(SpringLayout.EAST, panel, 358, SpringLayout.WEST, getContentPane());
+		getContentPane().add(panel);
+		
+		JPanel panel_1 = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, panel_1, 94, SpringLayout.SOUTH, splitPane);
+		springLayout.putConstraint(SpringLayout.WEST, panel_1, 89, SpringLayout.EAST, panel);
+		springLayout.putConstraint(SpringLayout.SOUTH, panel_1, 238, SpringLayout.SOUTH, splitPane);
+		springLayout.putConstraint(SpringLayout.EAST, panel_1, 235, SpringLayout.EAST, panel);
+		getContentPane().add(panel_1);
+	}
+}

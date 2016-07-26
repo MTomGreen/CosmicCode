@@ -1,0 +1,7 @@
+package green.util;
+
+import org.openqa.selenium.WebDriver;
+
+public class TestDriver implements WebDriver {
+
+}

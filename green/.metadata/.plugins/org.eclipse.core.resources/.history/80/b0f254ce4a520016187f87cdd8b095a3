@@ -1,0 +1,18 @@
+package green.ui.window.mainwindow;
+
+import javax.swing.JFrame;
+import javax.swing.SpringLayout;
+import javax.swing.JSplitPane;
+
+@SuppressWarnings("serial")
+public class TestWindow extends JFrame {
+	public TestWindow() {
+		SpringLayout springLayout = new SpringLayout();
+		getContentPane().setLayout(springLayout);
+		
+		JSplitPane splitPane = new JSplitPane();
+		springLayout.putConstraint(SpringLayout.NORTH, splitPane, 214, SpringLayout.NORTH, getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, splitPane, 131, SpringLayout.WEST, getContentPane());
+		getContentPane().add(splitPane);
+	}
+}

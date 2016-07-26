@@ -1,0 +1,30 @@
+package green.thread;
+
+import green.ui.window.MainWindow;
+
+public class GUIThread extends Thread{
+	
+	public MainThread main;
+	public static MainWindow window;
+	
+	@Override
+	public synchronized void start() {
+		super.start();	
+		window = new MainWindow();
+	}
+	
+	public GUIThread(MainThread thread) {
+		this.main = thread;
+		
+		
+		while(true){
+			try {
+				Thread.sleep(16);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+	}
+
+}

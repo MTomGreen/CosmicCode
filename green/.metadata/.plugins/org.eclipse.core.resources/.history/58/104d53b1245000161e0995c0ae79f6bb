@@ -1,0 +1,13 @@
+package green.ui.window.mainwindow;
+
+import java.awt.Color;
+
+import javax.swing.JFrame;
+
+public class MainPanel extends JFrame {
+	
+	public MainPanel() {
+		this.setBackground(new Color(0,5,0));
+	}
+
+}

@@ -1,0 +1,23 @@
+package green.detector;
+
+import java.util.concurrent.Callable;
+
+@SuppressWarnings("rawtypes")
+public class DetectorDownloader implements Callable{
+	
+	public Detector detector;
+	
+	public void Download(){
+		detector.populateData();
+	}
+
+	@Override
+	public Object call() throws Exception {
+		return null;
+	}
+	
+	public DetectorDownloader(Detector d) {
+		detector = d;
+	}
+
+}

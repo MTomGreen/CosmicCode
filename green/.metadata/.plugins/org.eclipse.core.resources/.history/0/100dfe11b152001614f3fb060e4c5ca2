@@ -1,0 +1,14 @@
+package green.math;
+
+import java.util.ArrayList;
+
+import green.detector.Detector;
+import green.objects.Coincidence;
+
+public class LocationMath {
+	
+	public static ArrayList<VectorDouble> positions;
+	
+	public static void setPositionsFromDetectors(Coincidence c)
+
+}
