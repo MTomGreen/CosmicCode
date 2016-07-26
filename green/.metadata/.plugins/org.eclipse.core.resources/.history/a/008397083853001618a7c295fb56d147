@@ -2,9 +2,14 @@ package green.thread;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.math.BigDecimal;
 
 import javax.swing.Timer;
 
+import green.detector.Detector;
+import green.math.ExtTime;
+import green.math.LocationMath;
 import green.util.DetectorUtils;
 import green.util.WebUtils;
 
@@ -20,12 +25,8 @@ public class MainThread extends Thread {
 		super.start();
 		gui = new GUIThread(this);
 		gui.start();
-		
-		double a = System.currentTimeMillis();
+
 		DetectorUtils.init();
-		double b = System.currentTimeMillis();
-		double c = (b-a)/1000;
-		System.out.println("Loading data took " + c + " seconds.");
 		
 		ActionListener taskPerformer = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -35,12 +36,13 @@ public class MainThread extends Thread {
 		t.setRepeats(true);
 		t.start();
 		
-
+		System.out.println(new ExtTime().getTimeFormat(1));
+		
 	}
 	
-	
+	boolean done = false;
 	public void update(){
-
+	
 	}
 
 	public static String getTime() {

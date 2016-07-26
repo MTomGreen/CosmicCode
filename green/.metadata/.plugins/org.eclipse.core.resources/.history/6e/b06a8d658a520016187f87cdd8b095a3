@@ -1,9 +1,0 @@
-package green.util;
-
-public class FileUtils {
-	
-	public static void getEventLogForDetector(Detector d){
-		
-	}
-
-}

@@ -36,7 +36,7 @@ public class MainThread extends Thread {
 		t.setRepeats(true);
 		t.start();
 		
-		System.out.println(new ExtTime().getTimeFormat(1));
+		//This should now be on GitHub.
 		
 	}
 	
