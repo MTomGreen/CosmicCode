@@ -1,0 +1,18 @@
+package green.objects;
+
+import green.math.EventTime;
+
+public class HitEvent {
+	public EventTime hit;
+	public double pulseHeight;
+	public int parentDetectorID;
+	public String timeStamp;
+	
+	public HitEvent(){
+		
+	}
+	
+	public HitEvent(){
+		
+	}
+}

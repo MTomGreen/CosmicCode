@@ -1,0 +1,21 @@
+package green.util;
+
+import green.math.EventTime;
+
+public class TimeUtils {
+	
+	public void getCelestialTime(){
+		
+	}
+	
+	public static EventTime getTimeBetween(EventTime a, EventTime b){
+		EventTime returns = new EventTime();
+		returns.setNanosAfter(b.getNanosAfter()-a.getNanosAfter());
+		returns.setUnixTime(b.getUnixTime()-a.getUnixTime());
+		String[] partsA = a.getDate().split("-");
+		String[] partsB = b.getDate().split(("-");
+		
+		return null;
+	}
+
+}

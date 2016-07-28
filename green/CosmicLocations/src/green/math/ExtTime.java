@@ -11,13 +11,15 @@ public class ExtTime {
 	public int hours;
 	public int minutes;
 	public int seconds;
+	public double nanos;
 	
 	public static int WEB_FORMAT = 1;
 	
-	public String getTimeFormat(int format){
+	public String format(int format){
 		switch(format){
 		case 1:
-			return year+"-"+format(month)+"-"+format(day)+"+"+format(hours)+":"+format(minutes)+":"+format(seconds);
+			// Example: 2016-07-35+03:23:43
+			return year+"-"+noFormat(month)+"-"+noFormat(day)+"+"+noFormat(hours)+":"+noFormat(minutes)+":"+noFormat(seconds);
 		}
 		return null;
 	}
@@ -36,9 +38,13 @@ public class ExtTime {
 		this.seconds = seconds;
 	}
 	
+	/** 
+	 * 
+	 * @param time In format YYYY:MM:DD+HH-MM-SS
+	 */
 	public ExtTime(String time){
-		String date = time.split("+")[0];
-		String ttime = time.split("+")[1];
+		String date = time.split("\\+")[0];
+		String ttime = time.split("\\+")[1];
 		String[] dateBits = date.split("-");
 		year = Integer.parseInt(dateBits[0]);
 		month = Integer.parseInt(dateBits[1]);
@@ -49,13 +55,20 @@ public class ExtTime {
 		seconds = Integer.parseInt(timeBits[2]);
 	}
 	
+	public static ExtTime parse(String time){
+		return new ExtTime(time);
+	}
 	
-	String format(int number){
+
+	
+	
+	String noFormat(int number){
 		if(number < 10)
 			return "0"+number;
 		else
 			return ""+number;
 	}
+	
 
 
 	public int getYear() {
@@ -116,6 +129,16 @@ public class ExtTime {
 	public int getSeconds() {
 		return seconds;
 	}
+
+	public double getNanos() {
+		return nanos;
+	}
+
+	public void setNanos(double nanos) {
+		this.nanos = nanos;
+	}
+	
+	
 	
 	
 }

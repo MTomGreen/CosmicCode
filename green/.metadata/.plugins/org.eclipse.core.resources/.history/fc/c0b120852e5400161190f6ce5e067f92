@@ -1,0 +1,73 @@
+package green.util;
+
+import java.util.ArrayList;
+
+import green.detector.Detector;
+import green.math.EventTime;
+import green.math.ExtTime;
+
+public class CoincidenceUtils {
+	
+	/** <b> This method is for demonstration purposes. </b> 
+	 * For gathering information you should use the method provided in {@link WebUtils}
+	 * @param detectors
+	 * @param leastHit
+	 * @param from The time to start looking for coincidences
+	 * @param to The time to finish looking for detectors
+	 */
+	public static void generateCoincidences(ArrayList<Detector> detectors, int leastHit, ExtTime from, ExtTime to){
+		//Generate coincidences. Unnecessary but good code practice.
+		//Load event data for the detectors
+		ArrayList<ArrayList<String>> listList = new ArrayList<ArrayList<String>>();
+		
+		for(Detector detector : detectors){ 
+			System.out.println("Loading data for " + detector.getName());
+			listList.add(WebUtils.downloadEventHistory(detector, from, to));
+		}
+		
+		ArrayList<EventTime> times = new ArrayList<EventTime>();
+		
+		for(ArrayList<String> k : listList){
+			//For each least of each detector
+			EventTime f = new EventTime();
+			System.out.println();
+			//f.parse(k.get(0), EventTime.EVENT_FORMAT);
+			times.add(f);
+		}
+		
+		
+		//List of String lists (containing events)
+		//for list... get info... get time
+		//get time between each
+		//if time < 2ms.... off we go
+		
+		
+		
+	}
+	
+	public static EventTime getTimeFromEvent(String event){
+		String[] parts = event.split("\t");
+		EventTime t = new EventTime();
+		t.parse(parts[0]+"\t"+parts[1]+"\t"+parts[2]+"\t"+parts[3], EventTime.EVENT_FORMAT);
+		return t;
+	}
+	/**
+	 * Extension of {@link WebUtils} getCoincidences.
+	 * @param detectors The detectors in the shower
+	 * @param leastHit The minimum number of detectors to be hit to record the event
+	 */
+	public static void getCoincidences(ArrayList<Detector> detectors, int leastHit){
+		//Download from HiSPARC
+	}
+	
+	/** 
+	 * Extension of {@link WebUtils} getCoincidence.
+	 * @param cluster The cluster of detectors to look for coincidences in.
+	 * @param leastHit The minimum number of hits to count as a shower.
+	 * @return Nothing, as of yet
+	 */
+	public static void getCoincidences(String cluster, int leastHit){
+		//Download from HiSPARC
+	}
+
+}

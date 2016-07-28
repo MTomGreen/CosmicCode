@@ -1,0 +1,15 @@
+package green.util;
+
+import green.math.EventTime;
+
+public class TimeUtils {
+	
+	public void getCelestialTime(){
+		
+	}
+	
+	public static EventTime getTimeBetween(EventTime a, EventTime b){
+		
+	}
+
+}

@@ -4,29 +4,23 @@ import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import java.util.Iterator;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import green.detector.Detector;
+import green.math.EventTime;
+import green.objects.Coincidence;
+import green.objects.HitEvent;
 
 public class WebUtils {
 
@@ -34,7 +28,7 @@ public class WebUtils {
 	public static URLConnection con;
 	public static InputStream is;
 	public static BufferedReader br;
-	
+
 	public static boolean downloaded = false;
 	public static String newFileName = "-";
 
@@ -85,83 +79,154 @@ public class WebUtils {
 		Point p = new Point().getLocation();
 		System.out.println(p.getLocation());
 	}
+
+	/**
+	 * Fills out the detector's event log with events from the times specified.
+	 * 
+	 * @param d
+	 *            The detector to gather information for
+	 * @param startTime
+	 *            When to begin collecting data
+	 * @param endTime
+	 *            When to finish collecting data
+	 **/
+	public static ArrayList<String> downloadEventHistory(Detector d, EventTime startTime, EventTime endTime) {
+		/** "http://data.hisparc.nl/data/14004/events/?Download=False&start=2016-07-25+00:00:00&end=2016-07-26+00:00:00" **/
+		String fileName = "events-s" + d.getStationID() + "-" + startTime.getDate() + "-" + endTime.getDate() + ".tsv";
+		if(!d.hasInfo())d.populateData();
+		ArrayList<String> lines = new ArrayList<String>();
+		if (!new File(FileUtils.base_dir + "/data/" + fileName).exists()) {
+			BufferedReader br = WebUtils.getReaderForURL(
+					"http://data.hisparc.nl/data/"+d.getStationID()+"/events/?Download=False&start="+startTime.getFor(EventTime.DOWNLOAD_FORMAT)+"&end="+endTime.getFor(EventTime.DOWNLOAD_FORMAT));
+			File file = new File(FileUtils.base_dir + "/data/" + fileName);
+			FileWriter writer;
+			String b;
+			try {
+				writer = new FileWriter(file);
+				while ((b = br.readLine()) != null) {
+					lines.add(b);
+					writer.write(b + "\r\n");
+				}
+				writer.flush();
+				writer.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else {
+			//grab data from file
+			System.out.println("Loading data from disk for station " + d.getName());
+			File openAs = new File(FileUtils.base_dir+"/data/"+fileName);
+			try{
+				BufferedReader reader = new BufferedReader(new FileReader(openAs));
+				String line;
+				
+				while((line = reader.readLine()) != null){
+					lines.add(line);
+					
+				}
+				reader.close();
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return lines;
+	}
 	
-	@Deprecated
-	public static void downloadEventLogLegacy(Detector d, String from, String to) {
-		from = "2016-07-12 12:00";
-		to = "2016-07-12 13:00";
-		File saveTo = new File(FileUtils.base_dir + "/data/temp");
-		if (!saveTo.exists())
-			saveTo.mkdirs();
+	public static ArrayList<Coincidence> getCoincidences(ArrayList<Detector> detectors, EventTime start, EventTime end, int minimumStrikes){
+		return getCoincidences(detectors, null, start, end, minimumStrikes);
+	}
+	
+	public static  ArrayList<Coincidence> getCoincidences(String cluster, EventTime start, EventTime end, int minimumStrikes){
+		return getCoincidences(null, cluster, start, end, minimumStrikes);
+	}
 
-		String downloadFilepath = saveTo.getAbsolutePath();
-		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-		chromePrefs.put("profile.default_content_settings.popups", 0);
-		chromePrefs.put("download.default_directory", downloadFilepath);
-		chromePrefs.put("download.file_name", "test.txt");
-		ChromeOptions options = new ChromeOptions();
-		options.setExperimentalOption("prefs", chromePrefs);
-		DesiredCapabilities cap = DesiredCapabilities.chrome();
-		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		cap.setCapability(ChromeOptions.CAPABILITY, options);
-
-		System.setProperty("webdriver.ie.driver", FileUtils.base_dir + "/lib/IEDriverServer.exe");
-		System.setProperty("webdriver.chrome.driver", FileUtils.base_dir + "/lib/chromedriver.exe");
-		WebDriver driver = new ChromeDriver(cap);
-		driver.get("http://data.hisparc.nl/data/download/");
-
-		WebElement stationList = driver.findElement(By.id("id_station_events"));
-		WebElement startField = driver.findElement(By.id("id_start"));
-		WebElement endField = driver.findElement(By.id("id_end"));
-		List<WebElement> inputs = driver.findElements(By.tagName("input"));
-		WebElement submitButton = inputs.get(inputs.size() - 1);
-
-		startField.click();
-		startField.sendKeys(from);
-
-		endField.click();
-		endField.sendKeys(to);
-
-		String all_values = stationList.getText();
-		ArrayList<String> values = new ArrayList<String>();
-		values.addAll(Arrays.asList(all_values.split("\n")));
-		values.remove(0);
-
-		int numberOfLinesUp = 0;
-		int id = d.getStationID();
-
-		for (String s : values) {
-			String b = s.split(": ")[0].replaceAll(" ", "");
-			if (Integer.parseInt(b) == id)
-				numberOfLinesUp = values.indexOf(s);
+	public static ArrayList<Coincidence> getCoincidences(EventTime start, EventTime end, int minimumStrikes){
+		return getCoincidences(null, null, start, end, minimumStrikes);
+	}
+	
+	
+	private static ArrayList<Coincidence> getCoincidences(ArrayList<Detector> detectors, String cluster, EventTime start, EventTime end, int minimumStrikes){
+		String url = null;
+		
+		//download with station numbers
+		if(detectors != null){
+			String base = "http://data.hisparc.nl/data/network/coincidences/?end=%s&start=%s&stations=%s&n=%s&cluster=None&download=False";
+			StringBuilder stations = new StringBuilder();
+			for(Detector detector : detectors){
+				stations.append(detector.getStationID());
+				stations.append(",");
+			}
+			url = String.format(base, end.getFor(EventTime.DOWNLOAD_FORMAT), start.getFor(EventTime.DOWNLOAD_FORMAT), stations.toString(), minimumStrikes);
+		}
+		
+		//download by cluster
+		else if(cluster != null){
+			String base = "http://data.hisparc.nl/data/network/coincidences/?end=%s&start=%s&stations=None&n=%s&cluster=%s&download=False";
+			url = String.format(base, end.getFor(EventTime.DOWNLOAD_FORMAT), start.getFor(EventTime.DOWNLOAD_FORMAT), minimumStrikes, cluster);
+		}
+		
+		//download everything
+		else{
+			String base = "http://data.hisparc.nl/data/network/coincidences/?end=%s&start=%s&stations=None&n=%s&cluster=None&download=False";
+			url = String.format(base, end.getFor(EventTime.DOWNLOAD_FORMAT), start.getFor(EventTime.DOWNLOAD_FORMAT), minimumStrikes);
+		}
+		
+		ArrayList<String> dataLines = new ArrayList<String>();
+		try{
+			System.out.println("Downloading data. Please wait...");
+			URL urlToOpen = new URL(url);
+			URLConnection connection = urlToOpen.openConnection();
+			InputStream input = connection.getInputStream();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+			
+			String dataLine;
+			while((dataLine = reader.readLine()) != null)
+				dataLines.add(dataLine);
+		}		
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		Iterator<String> iter = dataLines.iterator();
+		while(iter.hasNext()){
+			if(iter.next().contains("#"))
+				iter.remove();
 		}
 
-		stationList.click();
-		for (int i = 0; i < numberOfLinesUp + 1; i++) {
-			stationList.sendKeys(Keys.ARROW_DOWN);
+		ArrayList<HitEvent> events = new ArrayList<HitEvent>();
+		//Convert data into a series of HitEvent ojects.
+		for(String line : dataLines){
+			HitEvent currentEvent = new HitEvent(line);
+			events.add(currentEvent);
 		}
-		stationList.sendKeys(Keys.ENTER);
-
-		submitButton.click();
-
-
-		while(!downloaded){
-			File[] filesInDir = saveTo.listFiles();
-			for(File f : filesInDir){
-				if(f.getName().contains(".tsv") && !f.getName().contains("crdownload")){
-					downloaded = true;
+		
+		ArrayList<Coincidence> coincidences = new ArrayList<Coincidence>();
+		
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		
+		for(HitEvent event : events){
+			if(!ids.contains(event.id))
+				ids.add(event.id);
+		}
+		
+		//Autoboxing heaven. Ouch.
+		for(int id : ids){
+			coincidences.add(new Coincidence(id));
+		}
+		
+		for(HitEvent event : events){
+			for(Coincidence con : coincidences){
+				if(con.coincidenceID == event.id){
+					con.events.add(event);
 				}
 			}
 		}
-		driver.close();
-		driver.quit();
 		
-		newFileName = "station-"+id;
-		FileUtils.moveFilesFromDownloads();
+		
+		return coincidences;
 	}
 	
-	public static void downloadEventHistory(Detector d, String startTime, String endTime){
-		BufferedReader br = WebUtils.getReaderForURL("http://data.hisparc.nl/data/14004/events/?Download=False&start=2016-07-25+00:00:00&end=2016-07-26+00:00:00");
-	}
-
+	
 }

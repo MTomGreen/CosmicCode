@@ -43,6 +43,15 @@ public class DetectorUtils {
 	public ArrayList<Detector> getAllDetectors() {
 		return detectors;
 	}
+	
+	public static Detector getDetectorFromID(int id){
+		for(Detector d : detectors)
+			if(d.getStationID() == id){
+				return d;
+			}
+		System.err.println("The detector with ID " + id + " was not found.");
+		return null;
+	}
 
 	public static void loadAllDetectors() {
 		BufferedReader reader = WebUtils.getReaderForURL(API.BASE_URL + API.DETECTOR_LIST);
@@ -86,6 +95,14 @@ public class DetectorUtils {
 	
 	public static boolean isDataLoaded(){
 		return detectors.size() == loadProgress;
+	}
+	
+	public static ArrayList<Detector> getDetectorsFromIDs(int...ids){
+		ArrayList<Detector> detectors = new ArrayList<Detector>();
+		for(int id : ids){
+			detectors.add(getDetectorFromID(id));
+		}
+		return detectors;
 	}
 
 }

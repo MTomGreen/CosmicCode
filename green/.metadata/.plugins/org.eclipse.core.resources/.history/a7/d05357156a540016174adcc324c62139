@@ -1,0 +1,17 @@
+package green.objects;
+
+public class HitEvent {
+	
+	public String date;
+	public int id;
+	public int detectorID;
+	public String time;
+	public double unixTime;
+	public double nanosAfter;
+	public int[] pulseHeights;
+	public int[] integrals;
+	public int[] mips;
+	public 
+	
+
+}

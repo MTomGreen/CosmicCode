@@ -1,0 +1,10 @@
+package green.objects;
+
+import green.math.ExtTime;
+
+public class HitEvent {
+	public ExtTime hit;
+	public double pulseHeight;
+	public int parentDetectorID;
+	public String timeStamp;
+}

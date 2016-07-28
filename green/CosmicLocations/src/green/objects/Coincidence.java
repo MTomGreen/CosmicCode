@@ -2,10 +2,18 @@ package green.objects;
 
 import java.util.ArrayList;
 
-import green.detector.Detector;
-
 public class Coincidence {
 	
-	public ArrayList<Detector> detectors;
+	public int coincidenceID;
+	
+	public ArrayList<HitEvent> events = new ArrayList<HitEvent>();
+	
+	public Coincidence(){
+		
+	}
+	
+	public Coincidence(int id){
+		this.coincidenceID = id;
+	}
 
 }

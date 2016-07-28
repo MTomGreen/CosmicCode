@@ -1,0 +1,11 @@
+package green.objects;
+
+import java.util.ArrayList;
+
+public class Coincidence {
+	
+	private int coincidenceID;
+	
+	public ArrayList<HitEvent> events = new ArrayList<HitEvents>();
+
+}

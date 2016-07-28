@@ -92,6 +92,10 @@ public class Detector {
 		return !(this.log == null);
 	}
 	
+	public boolean hasInfo(){
+		return info != null;
+	}
+	
 
 	
 

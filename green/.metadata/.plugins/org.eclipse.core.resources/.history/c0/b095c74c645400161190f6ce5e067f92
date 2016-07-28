@@ -1,0 +1,183 @@
+package green.util;
+
+import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import green.detector.Detector;
+import green.math.EventTime;
+import green.objects.Coincidence;
+
+public class WebUtils {
+
+	public static URL url;
+	public static URLConnection con;
+	public static InputStream is;
+	public static BufferedReader br;
+
+	public static boolean downloaded = false;
+	public static String newFileName = "-";
+
+	public static String getStationInfo(int stationID) {
+		String out = null;
+		try {
+			out = getReaderForURL(API.BASE_URL + "station/" + stationID).readLine();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return out;
+	}
+
+	public static String getStationName(int stationID) {
+		JsonObject json = new JsonParser().parse(getStationInfo(stationID)).getAsJsonObject();
+		return json.get("name").getAsString();
+	}
+
+	public static String getStations() {
+		return null;
+	}
+
+	public static BufferedReader getReaderForURL(String urlText) {
+		URL url;
+		try {
+			url = new URL(urlText);
+			con = url.openConnection();
+			is = con.getInputStream();
+			br = new BufferedReader(new InputStreamReader(is));
+		} catch (FileNotFoundException e) {
+			System.err.println("The URL specifed is invlaid!");
+			System.out.println("Stacktrace:");
+			e.printStackTrace();
+		}
+
+		catch (UnknownHostException e) {
+			System.err.println("That host could not be found");
+			System.out.println("Please check your internet connection");
+			System.out.println("If you are connected to the internet, the HiSPARC website may be down");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return br;
+	}
+
+	public static void getLocation() {
+		Point p = new Point().getLocation();
+		System.out.println(p.getLocation());
+	}
+
+	/**
+	 * Fills out the detector's event log with events from the times specified.
+	 * 
+	 * @param d
+	 *            The detector to gather information for
+	 * @param startTime
+	 *            When to begin collecting data
+	 * @param endTime
+	 *            When to finish collecting data
+	 **/
+	public static ArrayList<String> downloadEventHistory(Detector d, EventTime startTime, EventTime endTime) {
+		/** "http://data.hisparc.nl/data/14004/events/?Download=False&start=2016-07-25+00:00:00&end=2016-07-26+00:00:00" **/
+		String fileName = "events-s" + d.getStationID() + "-" + startTime.getDate() + "-" + endTime.getDate() + ".tsv";
+		if(!d.hasInfo())d.populateData();
+		ArrayList<String> lines = new ArrayList<String>();
+		if (!new File(FileUtils.base_dir + "/data/" + fileName).exists()) {
+			BufferedReader br = WebUtils.getReaderForURL(
+					"http://data.hisparc.nl/data/"+d.getStationID()+"/events/?Download=False&start="+startTime.getFor(EventTime.DOWNLOAD_FORMAT)+"&end="+endTime.getFor(EventTime.DOWNLOAD_FORMAT));
+			File file = new File(FileUtils.base_dir + "/data/" + fileName);
+			FileWriter writer;
+			String b;
+			try {
+				writer = new FileWriter(file);
+				while ((b = br.readLine()) != null) {
+					lines.add(b);
+					writer.write(b + "\r\n");
+				}
+				writer.flush();
+				writer.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		else {
+			//grab data from file
+			System.out.println("Loading data from disk for station " + d.getName());
+			File openAs = new File(FileUtils.base_dir+"/data/"+fileName);
+			try{
+				BufferedReader reader = new BufferedReader(new FileReader(openAs));
+				String line;
+				
+				while((line = reader.readLine()) != null){
+					lines.add(line);
+					
+				}
+				reader.close();
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return lines;
+	}
+	
+	public Coincidence getCoincidences(ArrayList<Detector> detectors, EventTime start, EventTime end, int minimumStrikes){
+		return null;
+	}
+	
+	public Coincidence getCoincidences(String cluster, EventTime start, EventTime end, int minimumStrikes){
+		return null;
+	}
+
+	public Coincidence getCoincidences(EventTime start, EventTime end, int minimumStrikes){
+		return null;
+	}
+	
+	@SuppressWarnings("unused")
+	private Coincidence getCoincidence(ArrayList<Detector> detectors, String cluster, EventTime start, EventTime end, int minimumStrikes){
+		String url = null;
+		
+		//download with station numbers
+		if(detectors != null){
+			String base = "http://data.hisparc.nl/data/network/coincidences/?end=%s&start=%s&stations=%s&n=%s&cluster=None&download=False";
+			StringBuilder stations = new StringBuilder();
+			for(Detector detector : detectors){
+				stations.append(detector.getStationID());
+				stations.append(",");
+			}
+			url = String.format(base, end.getFor(EventTime.DOWNLOAD_FORMAT), start.getFor(EventTime.DOWNLOAD_FORMAT), stations.toString(), minimumStrikes);
+		}
+		
+		//download by cluster
+		else if(cluster != null){
+			String base = "http://data.hisparc.nl/data/network/coincidences/?end=%s&start=%s&stations=None&n=%s&cluster=%s&download=False";
+			url = String.format(base, end.getFor(EventTime.DOWNLOAD_FORMAT), start.getFor(EventTime.DOWNLOAD_FORMAT), minimumStrikes, cluster);
+		}
+		
+		//download everything
+		else{
+			String base = "http://data.hisparc.nl/data/network/coincidences/?end=%s&start=%s&stations=None&n=5&cluster=None&download=False";
+			url = String.format(base, end.getFor(EventTime.DOWNLOAD_FORMAT), start.getFor(EventTime.DOWNLOAD_FORMAT));
+		}
+		
+		try{
+			URL urlToOpen = new URL(url);
+		}
+		
+		return null;
+	}
+	
+	
+}

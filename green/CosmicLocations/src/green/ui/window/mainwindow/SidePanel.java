@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class SidePanel extends JPanel {
 	
 	public SidePanel() {

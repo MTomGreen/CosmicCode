@@ -1,0 +1,21 @@
+package green.objects;
+
+public class HitEvent {
+	
+	public String date;
+	public int id;
+	public int detectorID;
+	public String time;
+	public double unixTime;
+	
+	public HitEvent(){
+		
+	}
+	
+	/** 
+	 * @param rawData is the line of data straight from the coincidence file download.
+	 */
+	public HitEvent(String rawData){
+		
+	}
+}

@@ -13,7 +13,6 @@ import javax.swing.JSplitPane;
 import javax.swing.SpringLayout;
 
 import green.util.DateTimeUtils;
-import javax.swing.JTable;
 
 @SuppressWarnings("serial")
 public class TestWindow extends JFrame {

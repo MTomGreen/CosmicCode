@@ -36,11 +36,7 @@
 <fullyQualifiedTypeName name="org.openqa.selenium.WebElement"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.firefox.FirefoxDriver"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="green.detector.Detector"/>
-<fullyQualifiedTypeName name="green.objects.Coincidence"/>
-<fullyQualifiedTypeName name="green.math.LocationMath"/>
 <fullyQualifiedTypeName name="java.math.BigInteger"/>
-<fullyQualifiedTypeName name="green.util.WebUtils"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.ie.InternetExplorerDriver"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.support.ui.Select"/>
 <fullyQualifiedTypeName name="java.awt.List"/>
@@ -51,4 +47,12 @@
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.nio.file.Files"/>
 <fullyQualifiedTypeName name="java.nio.file.Paths"/>
+<fullyQualifiedTypeName name="green.math.ExtTime"/>
+<fullyQualifiedTypeName name="java.io.FileReader"/>
+<fullyQualifiedTypeName name="green.detector.Detector"/>
+<fullyQualifiedTypeName name="green.util.WebUtils"/>
+<fullyQualifiedTypeName name="green.util.CoincidenceUtils"/>
+<fullyQualifiedTypeName name="green.math.LocationMath"/>
+<fullyQualifiedTypeName name="green.objects.Coincidence"/>
+<fullyQualifiedTypeName name="green.math.EventTime"/>
 </qualifiedTypeNameHistroy>

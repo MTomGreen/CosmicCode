@@ -1,0 +1,21 @@
+package green.objects;
+
+import green.math.EventTime;
+
+public class HitEvent {
+	public EventTime hit;
+	public double pulseHeight;
+	public int parentDetectorID;
+	public String timeStamp;
+	
+	public HitEvent(){
+		
+	}
+	
+	/** 
+	 * @param rawData is the line of data straight from the coincidence file download.
+	 */
+	public HitEvent(String rawData){
+		
+	}
+}

@@ -2,14 +2,12 @@ package green.thread;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
-import green.detector.Detector;
-import green.math.ExtTime;
-import green.math.LocationMath;
+import green.math.EventTime;
+import green.objects.Coincidence;
 import green.util.DetectorUtils;
 import green.util.WebUtils;
 
@@ -36,7 +34,12 @@ public class MainThread extends Thread {
 		t.setRepeats(true);
 		t.start();
 		
-		//This should now be on GitHub.
+		EventTime a = new EventTime(); //"2016-07-20+12-00-00"
+		a.parse("2016-07-20+12:00:00", EventTime.DOWNLOAD_FORMAT);
+		EventTime b = new EventTime(); //2016-07-21+13-00-00
+		b.parse("2016-07-21+13:00:00", EventTime.DOWNLOAD_FORMAT);
+		
+		ArrayList<Coincidence> cons = WebUtils.getCoincidences(a, b, 4);
 		
 	}
 	

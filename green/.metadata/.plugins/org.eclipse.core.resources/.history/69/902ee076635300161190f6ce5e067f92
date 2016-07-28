@@ -1,0 +1,9 @@
+package green.util;
+
+public class TimeUtils {
+	
+	public void getCelestialTime(){
+		
+	}
+
+}

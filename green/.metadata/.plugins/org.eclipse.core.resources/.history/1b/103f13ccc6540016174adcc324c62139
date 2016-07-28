@@ -1,0 +1,38 @@
+package green.objects;
+
+public class HitEvent {
+	
+	public String date;
+	public int id;
+	public int detectorID;
+	public String time;
+	public double unixTime;
+	public double nanosAfter;
+	public double[] pulseHeights;
+	public double[] integrals;
+	public double[] mips;
+	public double[] arrivalTimes;
+	public double triggerTime;
+	
+	public HitEvent(String rawData){
+		String[] parts = rawData.split("\t");
+		id = Integer.parseInt(parts[0]);
+		date = parts[1];
+		time = parts[2];
+		unixTime = Double.parseDouble(parts[3]);
+		nanosAfter = Double.parseDouble(parts[4]);
+		
+		pulseHeights[0] = Double.parseDouble(parts[5]);
+		pulseHeights[1] = Double.parseDouble(parts[6]);
+		pulseHeights[2] = Double.parseDouble(parts[7]);
+		pulseHeights[3] = Double.parseDouble(parts[8]);
+		
+		integrals[0] = Double.parseDouble(parts[9]);
+		integrals[1] = Double.parseDouble(parts[10]);
+		integrals[2] = Double.parseDouble(parts[11]);
+		integrals[3] = Double.parseDouble(parts[12]);
+		
+		
+		
+	}
+}
