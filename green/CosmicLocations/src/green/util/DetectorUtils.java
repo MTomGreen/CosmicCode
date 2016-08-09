@@ -28,7 +28,26 @@ public class DetectorUtils {
 				+ Math.cos(a.getLatitudeInRadians()) * Math.cos(b.getLatitudeInRadians())
 				* Math.pow((b.getLongitudeInRadians() - a.getLongitudeInRadians()) / 2, 2)));
 
-		return d * 1000;
+		return d * 1000; //answer is in km.
+	}
+	
+	/** This is <b>correct</b> **/
+	public static double getBearingFrom(Detector a, Detector b){
+		double Lata = a.getLatitudeInRadians();
+		double Latb = b.getLatitudeInRadians();
+		double Lona = a.getLongitudeInRadians();
+		double Lonb = b.getLongitudeInRadians();
+		
+		double Bearing = Math.atan2(Math.sin(Lonb-Lona)*Math.cos(Latb),Math.cos(Lata)*Math.sin(Latb)-
+				Math.sin(Lata)*Math.cos(Latb)*Math.cos(Lona-Lonb));
+		//Bearing = Math.toDegrees(Bearing);
+		if(Bearing < 0)
+			Bearing += 360;
+		return Bearing;
+	}
+	
+	public static double getBearingDegrees(Detector a, Detector b){
+		return Math.toDegrees(getBearingFrom(a,b));
 	}
 
 	public static ArrayList<Detector> getOnlineDetectors() {

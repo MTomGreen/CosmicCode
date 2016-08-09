@@ -1,7 +1,0 @@
-package green.objects;
-
-public class Coincidence {
-	
-	public ArrayList<Detector> detectors;
-
-}

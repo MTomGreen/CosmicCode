@@ -1,0 +1,102 @@
+package green.math;
+
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+
+import green.detector.Detector;
+import green.objects.Coincidence;
+import green.objects.HitEvent;
+import green.util.DetectorUtils;
+import net.danceswithcode.Coord;
+
+public class LocationMath {
+	
+	public static ArrayList<VectorDouble> positions;
+	public static Coincidence coincidence;
+	
+	public static final double SPEED_OF_LIGHT = 299792458; //Meters per Second
+	public static final double SPEED_OF_MUON = 298893080.626; //Meters per Second
+	public static final double RELATIVE_MUON_SPEED = 0.98;
+
+	public static double relativityFactor = 1/Math.sqrt(1-(Math.pow(RELATIVE_MUON_SPEED, 2)));
+	
+	
+	/** The main purpose of this program. Calculates the Azimuth and Zenith angles from a given coincidence */
+	public static void getAngleForCoincidence(Coincidence coincidence){
+		if(coincidence.events.size() < 3){
+			System.err.println("There must be at least 3 events to calculate the angle!");
+			return;
+		}
+		
+		HitEvent A = coincidence.events.get(0);
+		HitEvent B = coincidence.events.get(1); //Only uses the first 3 events, as of now
+		HitEvent C = coincidence.events.get(2);
+		
+		System.out.println(coincidence.events.get(0).rawData);
+		System.out.println(coincidence.events.get(1).rawData);
+		System.out.println(coincidence.events.get(2).rawData);
+		
+		if(!(A.unixTime == B.unixTime && B.unixTime == C.unixTime)){ //If the Unix times are different we would have to convert 1 Unix into 1,000,000,000 nanoseconds. 
+			System.err.println("The unix timestamps were different. For complexity reasons, and due to the rarity of this happening, the function will exit.");
+			return;
+		}
+		
+		Detector detectorA = DetectorUtils.getDetectorFromID(A.detectorID);
+		Detector detectorB = DetectorUtils.getDetectorFromID(B.detectorID);
+		Detector detectorC = DetectorUtils.getDetectorFromID(C.detectorID);
+		
+		//The time the detector was hit relative to the time detector A was hit.
+		double Tb = (B.nanosAfter - A.nanosAfter)*10e-9;
+		B.relativeTime = Tb;    
+		double Tc = (C.nanosAfter - A.nanosAfter)*10e-9;
+		C.relativeTime = Tc;
+		
+		/**
+		//The bearing of this detector from detector A.
+		double bearingB = DetectorUtils.getBearingDegrees(detectorA, detectorB);
+		double bearingC = DetectorUtils.getBearingDegrees(detectorA, detectorC);
+		
+		//The distance between the detector and detector A.
+		double distanceB = DetectorUtils.distanceTo(detectorA, detectorB);
+		double distanceC = DetectorUtils.distanceTo(detectorA, detectorC);
+		**/
+		//Holds the relative X and Y coordinates.
+		double[] ACoords = Coord.geo_to_ecef(detectorA.getLatitudeInRadians(), detectorA.getLongitudeInRadians(), detectorA.getAltitude());
+		double[] BCoords = Coord.geo_to_ecef(detectorB.getLatitudeInRadians(), detectorB.getLongitudeInRadians(), detectorB.getAltitude());
+		double[] CCoords = Coord.geo_to_ecef(detectorC.getLatitudeInRadians(), detectorC.getLongitudeInRadians(), detectorC.getAltitude());
+		VectorDouble BCoord = new VectorDouble(BCoords[0]-ACoords[0], BCoords[1]-ACoords[1]);
+		VectorDouble CCoord = new VectorDouble(CCoords[0]-ACoords[0], CCoords[1]-ACoords[1]);
+		
+		double gradient = (CCoord.getY()*Tb-BCoord.getY()*Tc)/(CCoord.getX()*Tb-BCoord.getX()*Tc);
+		
+		double velocity = -(CCoord.getY() - gradient * CCoord.getX())/Tc*Math.sqrt((gradient*gradient)+1);
+		
+		velocity = Math.round(velocity);
+		
+		MathContext cont = new MathContext(35, RoundingMode.HALF_UP);
+		BigDecimal c = new BigDecimal(SPEED_OF_LIGHT);
+		BigDecimal vel = new BigDecimal(velocity);
+		c = c.divide(vel, cont);
+		System.out.println(c);
+		
+		double zenith = Math.asin(SPEED_OF_LIGHT/velocity);
+		double azimuth = Math.atan(gradient-90);
+		
+		System.out.println("Zenith: " + zenith);
+		System.out.println("Azimuth: " + azimuth);
+		
+		
+	}
+	
+	public static double getRightAscension(Coincidence c){
+		
+		
+		return 0;
+	}
+	
+	
+	
+
+}

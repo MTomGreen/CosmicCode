@@ -1,9 +1,0 @@
-package green.util;
-
-public class API {
-	
-	public static final String STATION_INFO = "station/{station_number}/{year}/{month}/{day}/";
-	
-	
-
-}

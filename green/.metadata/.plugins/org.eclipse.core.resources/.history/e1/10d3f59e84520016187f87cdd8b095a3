@@ -1,9 +1,0 @@
-package green.operation.coincidence;
-
-public class RayUtils {
-	
-	public static void processData(ArrayList<Detector> stations){
-		
-	}
-
-}

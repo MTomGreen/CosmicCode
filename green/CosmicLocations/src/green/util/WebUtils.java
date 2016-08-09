@@ -159,6 +159,7 @@ public class WebUtils {
 				stations.append(detector.getStationID());
 				stations.append(",");
 			}
+			stations.replace(stations.length()-1, stations.length(), ""); //remove the final comma.
 			url = String.format(base, end.getFor(EventTime.DOWNLOAD_FORMAT), start.getFor(EventTime.DOWNLOAD_FORMAT), stations.toString(), minimumStrikes);
 		}
 		

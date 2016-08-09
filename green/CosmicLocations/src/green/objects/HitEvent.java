@@ -8,11 +8,13 @@ public class HitEvent {
 	public String time;
 	public double unixTime;
 	public double nanosAfter;
+	public double relativeTime; //Used in calculating the angle of the event. May be null in most cases.
 	public double[] pulseHeights = new double[4];
 	public double[] integrals = new double[4];
 	public double[] mips = new double[4];
 	public double[] arrivalTimes = new double[4];
 	public double triggerTime;
+	public String rawData = null;
 	
 	public HitEvent(String rawData){
 		String[] parts = rawData.split("\t");
@@ -44,6 +46,8 @@ public class HitEvent {
 		arrivalTimes[3] = Double.parseDouble(parts[21]);
 		
 		triggerTime = Double.parseDouble(parts[22]);
+		
+		this.rawData = rawData;
 		
 	}
 }

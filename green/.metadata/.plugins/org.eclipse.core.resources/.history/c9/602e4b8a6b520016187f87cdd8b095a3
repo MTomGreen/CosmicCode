@@ -1,5 +1,0 @@
-package green.thread;
-
-public class DetectorDownloaderThread {
-
-}

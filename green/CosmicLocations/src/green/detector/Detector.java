@@ -9,6 +9,7 @@ public class Detector {
 	private EnumCluster Cluster;
 	private double latitude;
 	private double longitude;
+	private double altitude;
 	private StationInfo info;
 	private boolean active;
 	private DetectorEventLog log;
@@ -24,6 +25,7 @@ public class Detector {
 		Cluster = ClusterUtils.parseCluster(info.getCluster());
 		latitude = info.getLatitude();
 		longitude = info.getLongitude();
+		altitude = info.getAltitude();
 		active = info.isActive();
 	}
 	
@@ -96,6 +98,13 @@ public class Detector {
 		return info != null;
 	}
 	
+	public double getAltitude(){
+		return altitude;
+	}
+	
+	public void setAltitude(double alt){
+		altitude = alt;
+	}
 
 	
 

@@ -1,7 +1,0 @@
-package green.ui.window;
-
-import javax.swing.JFrame;
-
-public class TestWindow extends JFrame {
-
-}

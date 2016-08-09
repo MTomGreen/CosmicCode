@@ -1,8 +1,0 @@
-package green.detector;
-
-public class DetectorEventLog {
-	
-	public Detector detector;
-	public int detectorID = detector.getStationID();
-
-}

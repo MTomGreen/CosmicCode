@@ -1,9 +1,0 @@
-package green.math;
-
-import java.util.ArrayList;
-
-public class LocationMath {
-	
-	public static ArrayList<VectorDouble> positions;
-
-}

@@ -1,7 +1,0 @@
-package green.math;
-
-public class LocationMath {
-	
-	public static ArrayList<VectorDouble> positions;
-
-}

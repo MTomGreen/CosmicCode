@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.lang.Math"/>
-<fullyQualifiedTypeName name="java.util.Set"/>
-<fullyQualifiedTypeName name="java.io.InputStream"/>
-<fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
-<fullyQualifiedTypeName name="java.net.UnknownHostException"/>
 <fullyQualifiedTypeName name="green.util.WebUtil"/>
 <fullyQualifiedTypeName name="green.detector.EnumCluster"/>
 <fullyQualifiedTypeName name="green.util.ClusterUtils"/>
 <fullyQualifiedTypeName name="green.thread.MainThread"/>
-<fullyQualifiedTypeName name="java.io.BufferedReader"/>
 <fullyQualifiedTypeName name="com.google.gson.JsonParser"/>
 <fullyQualifiedTypeName name="com.google.gson.JsonElement"/>
 <fullyQualifiedTypeName name="java.lang.instrument.Instrumentation"/>
@@ -22,13 +16,11 @@
 <fullyQualifiedTypeName name="javax.swing.border.EtchedBorder"/>
 <fullyQualifiedTypeName name="green.util.DateTimeUtils"/>
 <fullyQualifiedTypeName name="green.ui.window.TestWindow"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.swing.SwingUtilities"/>
 <fullyQualifiedTypeName name="java.util.concurrent.Callable"/>
 <fullyQualifiedTypeName name="green.detector.DetectorDownloader"/>
 <fullyQualifiedTypeName name="java.util.concurrent.Executors"/>
 <fullyQualifiedTypeName name="java.util.concurrent.ExecutorService"/>
-<fullyQualifiedTypeName name="green.util.DetectorUtils"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="org.openqa.selenium.WebDriver"/>
@@ -48,11 +40,24 @@
 <fullyQualifiedTypeName name="java.nio.file.Files"/>
 <fullyQualifiedTypeName name="java.nio.file.Paths"/>
 <fullyQualifiedTypeName name="green.math.ExtTime"/>
-<fullyQualifiedTypeName name="java.io.FileReader"/>
 <fullyQualifiedTypeName name="green.detector.Detector"/>
-<fullyQualifiedTypeName name="green.util.WebUtils"/>
 <fullyQualifiedTypeName name="green.util.CoincidenceUtils"/>
-<fullyQualifiedTypeName name="green.math.LocationMath"/>
 <fullyQualifiedTypeName name="green.objects.Coincidence"/>
 <fullyQualifiedTypeName name="green.math.EventTime"/>
+<fullyQualifiedTypeName name="green.util.WebUtils"/>
+<fullyQualifiedTypeName name="com.google.gson.JsonObject"/>
+<fullyQualifiedTypeName name="com.google.gson.JsonArray"/>
+<fullyQualifiedTypeName name="green.Config"/>
+<fullyQualifiedTypeName name="green.util.FileUtils"/>
+<fullyQualifiedTypeName name="java.io.FileReader"/>
+<fullyQualifiedTypeName name="java.io.BufferedReader"/>
+<fullyQualifiedTypeName name="green.math.LocationMath"/>
+<fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="green.math.Coord"/>
+<fullyQualifiedTypeName name="net.danceswithcode.Coord"/>
+<fullyQualifiedTypeName name="java.math.RoundingMode"/>
+<fullyQualifiedTypeName name="java.math.MathContext"/>
+<fullyQualifiedTypeName name="green.util.DetectorUtils"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="green.math.RayMath"/>
 </qualifiedTypeNameHistroy>

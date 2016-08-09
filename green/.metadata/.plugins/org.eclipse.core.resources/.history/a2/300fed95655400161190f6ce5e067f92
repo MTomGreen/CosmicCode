@@ -1,8 +1,0 @@
-package green.objects;
-
-public class Coincidence {
-	
-	private int coincidenceID;
-	
-
-}

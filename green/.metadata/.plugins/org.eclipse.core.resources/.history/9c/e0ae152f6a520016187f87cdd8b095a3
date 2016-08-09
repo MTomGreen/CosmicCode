@@ -1,7 +1,0 @@
-package green.detector;
-
-public class DetectorDownloader {
-	
-	public Detector detector;
-
-}
