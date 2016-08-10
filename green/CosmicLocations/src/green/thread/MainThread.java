@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 import green.math.EventTime;
-import green.math.LocationMath;
 import green.math.RayMath;
 import green.objects.Coincidence;
 import green.util.DetectorUtils;
@@ -15,6 +14,7 @@ import green.util.WebUtils;
 
 public class MainThread extends Thread {
 	
+	//Used in the GUI. Should be moved to GUI thread.
 	private static String timeString;
 	private static String dateString;
 	
@@ -23,11 +23,14 @@ public class MainThread extends Thread {
 	@Override
 	public synchronized void start() {
 		super.start();
+		
+		//Initialise the GUI. Currently disabled.
 		gui = new GUIThread(this);
 		gui.start();
 
 		DetectorUtils.init();
 		
+		//Main processing loop.  Won't pause the current thread.
 		ActionListener taskPerformer = new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				update();}};
@@ -36,15 +39,18 @@ public class MainThread extends Thread {
 		t.setRepeats(true);
 		t.start();
 		
+		
+		
 		EventTime a = new EventTime(); //"2016-07-20+12-00-00"
 		a.parse("2016-07-01+00:00:00", EventTime.DOWNLOAD_FORMAT);
 		EventTime b = new EventTime(); //2016-07-21+13-00-00
 		b.parse("2016-07-06+00:00:00", EventTime.DOWNLOAD_FORMAT);
 		
-		//Wait for the data to actually be downloaded!
+		//Wait for the data to actually be downloaded
 		//Otherwise we can call on null values.
 		while(!DetectorUtils.isDataLoaded()){
 			try{
+				//Sleep 300ms to reduce CPU load.
 				Thread.sleep(300);
 			}
 			catch(Exception e){
@@ -52,16 +58,21 @@ public class MainThread extends Thread {
 		}
 		
 		//505, 506, 504, 511, 502, 509, 507
+		//Downloads coincidences from the HiSPARC database.
 		ArrayList<Coincidence> cons = WebUtils.getCoincidences(DetectorUtils.getDetectorsFromIDs(505, 506, 504, 511, 509, 507), a, b, 5);
-		Coincidence first = cons.get(0);
-		RayMath.getAngleFromCoincidence(first);
-		//LocationMath.getAngleForCoincidence(first);
 		
+		System.out.println("================");
+		for(Coincidence con : cons){
+			System.out.println("Coincidence " + cons.indexOf(con)+1);
+			RayMath.getAngleFromCoincidence(con);
+			System.out.println("================");
+		}
 		
 		System.exit(0);
 	}
 	
 	boolean done = false;
+	
 	public void update(){
 	
 	}

@@ -21,7 +21,7 @@ public class GUIThread extends Thread{
 	
 	public GUIThread(MainThread thread) {
 		this.main = thread;
-//		/window = new TestWindow();
+//		window = new TestWindow();
 		
 		ActionListener taskPerformer = new ActionListener(){
 			public void actionPerformed(ActionEvent e){

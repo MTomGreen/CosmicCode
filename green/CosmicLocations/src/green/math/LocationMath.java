@@ -59,6 +59,7 @@ public class LocationMath {
 		C.relativeTime = Tc;
 		
 
+		/**
 		//The bearing of this detector from detector A.
 		double bearingB = DetectorUtils.getBearingDegrees(detectorA, detectorB);
 		double bearingC = DetectorUtils.getBearingDegrees(detectorA, detectorC);
@@ -66,7 +67,7 @@ public class LocationMath {
 		//The distance between the detector and detector A.
 		double distanceB = DetectorUtils.distanceTo(detectorA, detectorB);
 		double distanceC = DetectorUtils.distanceTo(detectorA, detectorC);
-
+		**/
 		
 		//Holds the relative X and Y coordinates.
 		double[] ACoords = Coord.geo_to_ecef(detectorA.getLatitudeInRadians(), detectorA.getLongitudeInRadians(), detectorA.getAltitude());
