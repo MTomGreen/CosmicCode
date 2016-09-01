@@ -6,7 +6,11 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
+import green.math.CartesianLocationMath;
+import green.math.ConstantsGenerator;
 import green.math.EventTime;
+import green.math.LocationMath;
+import green.math.Locations3;
 import green.math.RayMath;
 import green.objects.Coincidence;
 import green.util.DetectorUtils;
@@ -60,15 +64,11 @@ public class MainThread extends Thread {
 		//505, 506, 504, 511, 502, 509, 507
 		//Downloads coincidences from the HiSPARC database.
 		ArrayList<Coincidence> cons = WebUtils.getCoincidences(DetectorUtils.getDetectorsFromIDs(505, 506, 504, 511, 509, 507), a, b, 5);
-		
-		System.out.println("================");
-		for(Coincidence con : cons){
-			System.out.println("Coincidence " + cons.indexOf(con)+1);
-			RayMath.getAngleFromCoincidence(con);
-			System.out.println("================");
-		}
+		Coincidence con = cons.get(0);
+		Locations3.getAnglesFor(con);
 		
 		System.exit(0);
+		
 	}
 	
 	boolean done = false;

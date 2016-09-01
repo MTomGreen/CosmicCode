@@ -1,0 +1,22 @@
+package green.math;
+
+import java.util.ArrayList;
+
+import green.objects.Coincidence;
+import green.objects.HitEvent;
+
+public class Locations3 {
+	
+	public static VectorDouble getAnglesFor(Coincidence coincidence){
+		
+		//We only want the first 3 events in the coincidence, for now.
+		ArrayList<HitEvent> events = coincidence.events;
+		HitEvent eventA = events.get(0);
+		HitEvent eventB = events.get(1);
+		HitEvent eventC = events.get(2);
+		
+		
+		return null;
+	}
+
+}

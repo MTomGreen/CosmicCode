@@ -1,0 +1,30 @@
+package green.math;
+
+public class Vector3Double {
+	
+	private double a, b, c;
+	
+	public Vector3Double(double x, double y, double z){
+		a = x;
+		b = y;
+		c = z;
+	}
+	
+	public double getX(){
+		return a;
+	}
+	
+	public double getY(){
+		return b;
+	}
+	
+	public double getZ(){
+		return c;
+	}
+	
+	@Override
+	public String toString() {
+		return "["+a+","+b+","+c+"]";
+	}
+
+}

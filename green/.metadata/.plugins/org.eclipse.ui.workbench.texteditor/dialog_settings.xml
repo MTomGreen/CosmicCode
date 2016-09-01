@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="&quot;Distance to: &quot; + DetectorUtils.distanceTo" key="selection"/>
+		<item value="CCoords" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="gc"/>
+			<item value="gb"/>
+			<item value="ga"/>
+			<item value="Cs"/>
+			<item value="Bs"/>
+			<item value="As"/>
+			<item value="update"/>
 			<item value="DetectorUtils.distanceTo"/>
-			<item value="DetectorUtils.getBearingFrom"/>
-			<item value="509"/>
-			<item value="78"/>
-			<item value="test"/>
-			<item value="setDividerSize(3);"/>
-			<item value="setDividerSize(1);"/>
-			<item value="split"/>
 		</list>
 		<list key="replacehistory">
+			<item value="CCoords"/>
+			<item value="BCoords"/>
+			<item value="ACoords"/>
+			<item value="stationC"/>
+			<item value="stationB"/>
+			<item value="stationA"/>
 			<item value="&quot;Distance to: &quot; + DetectorUtils.distanceTo"/>
 			<item value="&quot;Bearing: &quot; + DetectorUtils.getBearingFrom"/>
-			<item value="&quot;Bearing: &quot; +DetectorUtils.distanceTo"/>
-			<item value="setDividerSize(9);"/>
-			<item value="setDividerSize(3);"/>
-			<item value="p."/>
-			<item value="q."/>
-			<item value=" q "/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

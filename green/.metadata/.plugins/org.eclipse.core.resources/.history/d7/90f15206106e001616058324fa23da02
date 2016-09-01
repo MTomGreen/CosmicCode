@@ -1,0 +1,16 @@
+package green.math;
+
+import green.objects.Coincidence;
+
+public class Locations3 {
+	
+	public static VectorDouble getAnglesFor(Coincidence coincidence){
+		
+		//We only want the first 3 events in the coincidence, for now.
+		ArrayList<HitEvent> events = coincidence.events;
+		
+		
+		return null;
+	}
+
+}
