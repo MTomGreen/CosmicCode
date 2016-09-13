@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="green.util.ClusterUtils"/>
 <fullyQualifiedTypeName name="green.thread.MainThread"/>
 <fullyQualifiedTypeName name="com.google.gson.JsonParser"/>
 <fullyQualifiedTypeName name="com.google.gson.JsonElement"/>
@@ -56,8 +55,9 @@
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="green.math.RayMath"/>
 <fullyQualifiedTypeName name="green.math.LocationMath"/>
-<fullyQualifiedTypeName name="green.util.DetectorUtils"/>
 <fullyQualifiedTypeName name="green.math.ConstantsGenerator"/>
 <fullyQualifiedTypeName name="net.danceswithcode.Coord"/>
 <fullyQualifiedTypeName name="green.math.CartesianLocationMath"/>
+<fullyQualifiedTypeName name="green.util.DetectorUtils"/>
+<fullyQualifiedTypeName name="green.math.Locations3"/>
 </qualifiedTypeNameHistroy>

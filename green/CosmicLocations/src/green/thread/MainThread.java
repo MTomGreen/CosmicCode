@@ -12,6 +12,7 @@ import green.math.EventTime;
 import green.math.LocationMath;
 import green.math.Locations3;
 import green.math.RayMath;
+import green.math.TestCase;
 import green.objects.Coincidence;
 import green.util.DetectorUtils;
 import green.util.WebUtils;
@@ -64,8 +65,9 @@ public class MainThread extends Thread {
 		//505, 506, 504, 511, 502, 509, 507
 		//Downloads coincidences from the HiSPARC database.
 		ArrayList<Coincidence> cons = WebUtils.getCoincidences(DetectorUtils.getDetectorsFromIDs(505, 506, 504, 511, 509, 507), a, b, 5);
-		Coincidence con = cons.get(0);
-		Locations3.getAnglesFor(con);
+		Coincidence con = cons.get(1);
+		//Locations3.getAnglesFor(con);
+		TestCase.get();
 		
 		System.exit(0);
 		

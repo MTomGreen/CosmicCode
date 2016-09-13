@@ -20,6 +20,11 @@ public class Locations3 {
 		HitEvent eventB = events.get(1);
 		HitEvent eventC = events.get(2);
 		
+		//System.out.println(eventA.rawData);
+		//System.out.println(eventB.rawData);
+		//System.out.println(eventC.rawData);
+		
+		
 		Detector detectorA = DetectorUtils.getDetectorFromID(eventA.detectorID);
 		Detector detectorB = DetectorUtils.getDetectorFromID(eventB.detectorID);
 		Detector detectorC = DetectorUtils.getDetectorFromID(eventC.detectorID);
@@ -43,7 +48,6 @@ public class Locations3 {
 		double A = (1-sqr(Cz/c*Tc)+sqr(U)+(1-sqr(Cy/c*Tc))-2*U*(Cy/c*Tc)*Cz/c*Tc);
 		double B = 2*(U*V*(1-sqr(Cy/c*Tc))-V*(Cy/c*Tc)*(Cz/c*Tc)-U*(Cx/c*Tc)*(Cy/c*Tc)-(Cx/c*Tc)*(Cz/c*Tc));
 		double C = (1-sqr(Cy/c*Tc))-2*V*(Cx/c*Tc)*(Cy/c*Tc)+(1-sqr(Cx/c*Tc));
-		B = -B;
 		
 		double x1 = (-B + Math.sqrt(sqr(B)-4*A*C))/2*A;
 		double x2 = (-B - Math.sqrt(sqr(B)-4*A*C))/2*A; //Either of these may be impossible.

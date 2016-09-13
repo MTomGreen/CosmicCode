@@ -1,0 +1,33 @@
+package green.math;
+
+public class TestCase {
+	
+	double Bx = 10; double By = 0; double Bz = 0;
+	double Cx = 0; double Cy = 10; double Cz = 0;
+	
+	double Tb = 0; 
+	double Tc = 0;
+	
+	double c = 298893080.626;
+	
+	
+	double U = - (((Cz*Tb)-(Bz*Tc))/((Cy*Tb)-(By*Tc)));
+	double V = - (((Cx*Tb)-(Bx*Tc))/((Cy*Tb)-(By*Tc)));
+	
+	
+	double A = (1-sqr(Cz/c*Tc)+sqr(U)+(1-sqr(Cy/c*Tc))-2*U*(Cy/c*Tc)*Cz/c*Tc);
+	double B = 2*(U*V*(1-sqr(Cy/c*Tc))-V*(Cy/c*Tc)*(Cz/c*Tc)-U*(Cx/c*Tc)*(Cy/c*Tc)-(Cx/c*Tc)*(Cz/c*Tc));
+	double C = (1-sqr(Cy/c*Tc))-2*V*(Cx/c*Tc)*(Cy/c*Tc)+(1-sqr(Cx/c*Tc));
+	
+	double x1 = (-B + Math.sqrt(sqr(B)-4*A*C))/2*A;
+	double x2 = (-B - Math.sqrt(sqr(B)-4*A*C))/2*A; //Either of these may be impossible.
+	
+	System.out.println(A + ", " + B + ", " + C);
+	System.out.println(U +", " + V);
+	System.out.println(x1 +", " + x2);
+	
+	
+	private double sqr(double d){
+		return d*d;
+	}
+}

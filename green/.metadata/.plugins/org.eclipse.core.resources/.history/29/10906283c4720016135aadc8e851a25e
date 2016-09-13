@@ -1,0 +1,7 @@
+package green.math;
+
+public class TestCase {
+	
+	double Bx = 0; double By = 0;
+
+}
