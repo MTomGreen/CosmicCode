@@ -1,0 +1,13 @@
+package green.math;
+
+import green.objects.Coincidence;
+
+public class LocationMathFinal {
+	
+	static double c = 298893080.626; //Speed of a Muon
+	
+	public VectorDouble getAnglesForCoincidece(Coincidence con){
+		return null;
+	}
+
+}

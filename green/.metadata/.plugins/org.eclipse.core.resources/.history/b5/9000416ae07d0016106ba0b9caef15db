@@ -1,0 +1,11 @@
+package green.ui.commandline;
+
+import javax.swing.JFrame;
+import javax.swing.SpringLayout;
+
+public class FileChooserWindow extends JFrame{
+	public FileChooserWindow() {
+		getContentPane().setLayout(new SpringLayout());
+	}
+
+}

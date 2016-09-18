@@ -1,0 +1,107 @@
+package green.math;
+
+import green.detector.Detector;
+import green.objects.Coincidence;
+import green.objects.HitEvent;
+import green.util.DetectorUtils;
+import net.danceswithcode.Coord;
+
+public class LocationMathFinal {
+	
+	static double c = 298893080.626; //Speed of a Muon
+
+	
+	
+	public static VectorDouble getAnglesForCoincidece(Coincidence con){
+		
+		//We currently only use 3 detectors
+		HitEvent eventA = con.events.get(0);
+		HitEvent eventB = con.events.get(1);
+		HitEvent eventC = con.events.get(2);
+		
+		//Validate UNIX time
+		if(!(eventA.unixTime == eventB.unixTime && eventB.unixTime == eventC.unixTime)){ 
+			System.err.println("The unix timestamps were different. For complexity reasons, and due to the rarity of this happening, the function will exit.");
+			System.err.println("returned 0 and 0 degrees");
+			return null;
+		}
+		
+		//Retrieve detectors from detector utils.
+		Detector detectorA = DetectorUtils.getDetectorFromID(eventA.detectorID);
+		Detector detectorB = DetectorUtils.getDetectorFromID(eventB.detectorID);
+		Detector detectorC = DetectorUtils.getDetectorFromID(eventC.detectorID);
+		
+		
+		//relative event times. Not converted into seconds as the whole system is relative, therefore it does not matter. Conversion also loses accuracy.
+		double Tb = (eventB.nanosAfter - eventA.nanosAfter)*10e-9;  
+		double Tc = (eventC.nanosAfter - eventA.nanosAfter)*10e-9;
+		
+		//Gets the positional data.
+		
+		double[] ACoords = Coord.geo_to_ecef(detectorA.getLatitudeInRadians(), detectorA.getLongitudeInRadians(), detectorA.getAltitude());
+		double[] BCoords = Coord.geo_to_ecef(detectorB.getLatitudeInRadians(), detectorB.getLongitudeInRadians(), detectorB.getAltitude());
+		double[] CCoords = Coord.geo_to_ecef(detectorC.getLatitudeInRadians(), detectorC.getLongitudeInRadians(), detectorC.getAltitude());
+		
+		double Bx = BCoords[0]-ACoords[0]; double Cx = CCoords[0]-ACoords[0];
+		double By = BCoords[1]-ACoords[1]; double Cy = CCoords[1]-ACoords[1];
+		double Bz = BCoords[2]-ACoords[2]; double Cz = CCoords[2]-ACoords[2];
+		
+//		Bx = 10;
+//		By = 0;
+//		Bz = 0;
+//		Cx = 0;
+//		Cy = 10;
+//		Cz = 0;
+//		
+//		Tb = 0.000123;
+//		Tc = 0.000123;
+		
+		double U = -(((Cz * Tb) - (Bz * Tc)) / ((Cy * Tb) - (By * Tc)));
+		double V = -(((Cx * Tb) - (Bx * Tc)) / ((Cy * Tb) - (By * Tc)));
+		
+		
+		//Quadratic
+		double A = (1 - sqr(Cz /(c * Tc)) + (sqr(U) * (1 - sqr(Cy / (c * Tc))) - ((2 * U) * ((Cz) * (c * Tc)))));
+		double B = 2 * (U * V * (1 - sqr(Cy / (c * Tc))) - V * (Cy / (c * Tc)) * (Cz / (c * Tc))
+				- U * (Cx / (c * Tc)) * (Cy / (c * Tc)) - (Cx / (c * Tc)) * (Cz / (c * Tc)));
+		double C = V*V + 1   - (V*By+Bx)*(V*By+Bx)/(Tb*Tb);
+		
+		double R1 = (-B + Math.sqrt(sqr(B) - 4 * A * C)) / (2 * A);
+		double R2 = (-B - Math.sqrt(sqr(B) - 4 * A * C)) / (2 * A);
+		
+		double Q1 = R1 * U + V;
+		double Q2 = R2 * U + V;
+		
+		double theta1 = Math.toDegrees(Math.atan(Q1));
+		double theta2 = Math.toDegrees(Math.atan(Q2));
+		
+	    double phi1 = Math.toDegrees(Math.acos(R1/Math.sqrt(1 + Q1*Q1 + R1*R1)));	
+	    double phi2 = Math.toDegrees(Math.acos(R2/Math.sqrt(1 + Q2*Q2 + R2*R2)));
+		
+		//Theta -> Azimuth
+	    //Phi -> Declination, or Zenith
+	    
+	    double azimuth;
+	    double zenith;
+	    
+	    if(phi1 > 1){
+	    	azimuth = theta1;
+	    	zenith = phi1;
+	    }
+	    else {
+	    	azimuth = theta2;
+	    	zenith = phi2;
+	    }
+	    		
+	    VectorDouble AZenith = new VectorDouble(azimuth, zenith);
+	    
+	    return AZenith;
+	    
+	    
+	}
+	
+	private static double sqr(double d){
+		return d*d;
+	}
+
+}

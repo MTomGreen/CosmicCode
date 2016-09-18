@@ -1,0 +1,9 @@
+package green.math;
+
+public class LocationMathFinal {
+	
+	public VectorDouble getAnglesForCoincidece(Coincidence con){
+		
+	}
+
+}

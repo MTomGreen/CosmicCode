@@ -1,0 +1,53 @@
+package green.math;
+
+public class TestCase {
+
+	static double Bx = 10;
+	static double By = 0;
+	static double Bz = 0;
+	static double Cx = 0;
+	static double Cy = 10;
+	static double Cz = 0;
+
+	static double Tb = 0.000123;
+	static double Tc = 0.000123;
+
+	//static double c = 298893080.626;
+	static double c = 299792458;
+
+	static double U = -(((Cz * Tb) - (Bz * Tc)) / ((Cy * Tb) - (By * Tc)));
+	static double V = -(((Cx * Tb) - (Bx * Tc)) / ((Cy * Tb) - (By * Tc)));
+
+	public static void get() {
+
+		double A = (1 - sqr(Cz /(c * Tc)) + (sqr(U) * (1 - sqr(Cy / (c * Tc))) - ((2 * U) * ((Cz) * (c * Tc)))));
+		double B = 2 * (U * V * (1 - sqr(Cy / (c * Tc))) - V * (Cy / (c * Tc)) * (Cz / (c * Tc))
+				- U * (Cx / (c * Tc)) * (Cy / (c * Tc)) - (Cx / (c * Tc)) * (Cz / (c * Tc)));
+		
+		double c = sqr(V)*(1-sqr(Cy/(c*Tc)))-(2*V)*(cX/(c*Tc)*Cz/(c*Tc)-(Cx/(c*Tc))*(Zc/(c*Tc)));
+		
+		// double C = (1 - sqr(Cy / c * Tc)) - 2 * V * (Cx / c * Tc) * (Cy / c *
+		// Tc) + (1 - sqr(Cx / c * Tc));
+		// double C = (sqr(V)*sqr(Cy/c*Tc) - ((2*V)*((Cx/c*Tc)*(Cy/c*Tc))) +
+		// sqr(1-sqr(Cx/c*Tc)));
+		// double C =
+		// (sqr(V)*(1-sqr(Cy/c*Tc)))-((2*V)*(Cx/c*Tc)*(Cy/c*Tc))+(1-sqr(Cx/c*Tc));
+		//double C = sqr(V) * (1 - sqr(Cy / (c * Tc))) - 2 * V * (Cx / (c * Tc)) * (Cy / (c * Tc)) + (1 - sqr(Cx / (c * Tc)));
+		//double C = (sqr(V)*(1-sqr(Cy/(c*Tc))))-((2*V)*(Cx/(c*Tc))*(Cy/(c*Tc)))+(1-sqr(Cx/(c*Tc)));
+		
+
+		double x1 = (-B + Math.sqrt(sqr(B) - 4 * A * C)) / 2 * A;
+		double x2 = (-B - Math.sqrt(sqr(B) - 4 * A * C)) / 2 * A; // Either of
+																	// these may
+																	// be
+																	// impossible.
+		
+
+		System.out.println("U: " + U + "\r\nV: " + V + "\r\n");
+		System.out.println("A:" + A + "\r\nB: " + B + "\r\nC:" + C);
+	}
+
+	private static double sqr(double d) {
+		return d * d;
+	}
+}

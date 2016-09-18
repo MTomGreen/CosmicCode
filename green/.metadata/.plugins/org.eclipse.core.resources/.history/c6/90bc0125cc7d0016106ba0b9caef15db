@@ -1,0 +1,13 @@
+package green.math;
+
+import green.objects.Coincidence;
+
+public class LocationMathFinal {
+	
+	
+	
+	public VectorDouble getAnglesForCoincidece(Coincidence con){
+		return null;
+	}
+
+}

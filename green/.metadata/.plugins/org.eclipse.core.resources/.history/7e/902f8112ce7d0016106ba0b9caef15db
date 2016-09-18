@@ -1,0 +1,41 @@
+package green.math;
+
+import green.detector.Detector;
+import green.objects.Coincidence;
+import green.objects.HitEvent;
+import green.util.DetectorUtils;
+
+public class LocationMathFinal {
+	
+	static double c = 298893080.626; //Speed of a Muon
+
+	
+	public VectorDouble getAnglesForCoincidece(Coincidence con){
+		
+		//We currently only use 3 detectors
+		HitEvent eventA = con.events.get(0);
+		HitEvent eventB = con.events.get(1);
+		HitEvent eventC = con.events.get(2);
+		
+		//Validate UNIX time
+		if(!(eventA.unixTime == eventB.unixTime && eventB.unixTime == eventC.unixTime)){ 
+			System.err.println("The unix timestamps were different. For complexity reasons, and due to the rarity of this happening, the function will exit.");
+			System.err.println("returned 0 and 0 degrees");
+			return new VectorDouble(0,0);
+		}
+		
+		//Retrieve detectors from detector utils.
+		Detector detectorA = DetectorUtils.getDetectorFromID(eventA.detectorID);
+		Detector detectorB = DetectorUtils.getDetectorFromID(eventB.detectorID);
+		Detector detectorC = DetectorUtils.getDetectorFromID(eventC.detectorID);
+		
+		
+		
+		
+		
+		
+		
+		return null;
+	}
+
+}

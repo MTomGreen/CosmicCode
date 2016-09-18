@@ -1,0 +1,7 @@
+package green.ui.commandline;
+
+import javax.swing.JFrame;
+
+public class FileChooserWindow extends JFrame{
+
+}

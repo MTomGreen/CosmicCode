@@ -11,6 +11,7 @@ public class DetectorDownloaderThread extends Thread{
 	public void run() {
 		d.populateData();
 		DetectorUtils.incrementLoadProgress();
+		//System.out.println("Downloaded data for " + d.getName() + "(" + d.getStationID() + ")"); //Print download log
 	}
 	
 	public DetectorDownloaderThread(Detector d) {

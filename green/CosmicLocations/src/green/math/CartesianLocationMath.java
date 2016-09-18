@@ -1,13 +1,11 @@
+/**
 package green.math;
 
 import green.detector.Detector;
 import green.objects.Coincidence;
 import green.objects.HitEvent;
 import green.util.DetectorUtils;
-/** 
- * This code was written using the equations found in the following document:
- * https://s3.amazonaws.com/uploads.hipchat.com/597821/4114348/AmMfknwQuRygIiy/CosmicShowerFront.pdf
- * **/
+
 public class CartesianLocationMath {
 	
 	public static double earthRadius = 6371000; //In meters
@@ -37,13 +35,6 @@ public class CartesianLocationMath {
 		Vector3Double BCoords = new Vector3Double(earthRadius+stationB.getAltitude()*cos(stationB.getLatitude()*stationB.getLongitude()),earthRadius+stationB.getAltitude()*cos(stationB.getLatitude()*sin(stationB.getLongitude())),earthRadius+stationB.getAltitude()*sin(stationB.getLatitude()));
 		Vector3Double CCoords = new Vector3Double(earthRadius+stationC.getAltitude()*cos(stationC.getLatitude()*stationC.getLongitude()),earthRadius+stationC.getAltitude()*cos(stationC.getLatitude()*sin(stationC.getLongitude())),earthRadius+stationC.getAltitude()*sin(stationC.getLatitude()));
 		
-		
-		/**
-		 * p - a
-		 * q - b
-		 * r - c
-		 * s - d
-		 */
 		double p = (BCoords.getY()-ACoords.getY())*(CCoords.getZ()-ACoords.getZ())-(CCoords.getY()-ACoords.getY())*(BCoords.getZ()-ACoords.getZ());
 		double q = (BCoords.getZ()-ACoords.getZ())*(CCoords.getX()-ACoords.getX())-(CCoords.getZ()-ACoords.getZ())*(BCoords.getZ()-ACoords.getZ()); 
 		double r = (BCoords.getX()-ACoords.getX())*(CCoords.getY()-ACoords.getY())-(CCoords.getX()-ACoords.getX())*(BCoords.getY()-ACoords.getY());
@@ -85,3 +76,5 @@ public class CartesianLocationMath {
 	}
 
 }
+
+**/
