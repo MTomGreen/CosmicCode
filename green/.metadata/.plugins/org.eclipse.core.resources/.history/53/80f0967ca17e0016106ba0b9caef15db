@@ -1,8 +1,5 @@
 package green.ui.commandline;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -116,15 +113,12 @@ public class ConsoleWindow extends JFrame{
 			public void mousePressed(MouseEvent arg0) {
 				ArrayList<String> log = new ArrayList<String>();
 				LocationMathFinal.getAnglesForCoincidenceWithLog(FileUtils.getCoincidenceFromDataFile(file), log);
-				StringBuilder b = new StringBuilder();
+				//StringBuilder b = new StringBuilder();
+				String b = null;
 				
 				for(String s : log){
-					b.append(s + "\n");
+					logArea.append(s + "\n");
 				}
-				StringSelection selection = new StringSelection(b.toString());
-				Clipboard board = Toolkit.getDefaultToolkit().getSystemClipboard();
-				board.setContents(selection, null);
-				logArea.append("Copied log to clipboard");
 				
 			}
 

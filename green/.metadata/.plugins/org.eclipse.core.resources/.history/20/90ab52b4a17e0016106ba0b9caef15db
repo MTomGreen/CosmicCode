@@ -123,7 +123,7 @@ public class ConsoleWindow extends JFrame{
 				}
 				StringSelection selection = new StringSelection(b.toString());
 				Clipboard board = Toolkit.getDefaultToolkit().getSystemClipboard();
-				board.setContents(selection, null);
+				
 				logArea.append("Copied log to clipboard");
 				
 			}

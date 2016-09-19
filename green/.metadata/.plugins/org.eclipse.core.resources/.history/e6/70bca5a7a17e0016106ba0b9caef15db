@@ -1,7 +1,5 @@
 package green.ui.commandline;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -122,8 +120,6 @@ public class ConsoleWindow extends JFrame{
 					b.append(s + "\n");
 				}
 				StringSelection selection = new StringSelection(b.toString());
-				Clipboard board = Toolkit.getDefaultToolkit().getSystemClipboard();
-				board.setContents(selection, null);
 				logArea.append("Copied log to clipboard");
 				
 			}

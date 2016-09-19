@@ -1,8 +1,5 @@
 package green.ui.commandline;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -13,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -31,7 +29,8 @@ public class ConsoleWindow extends JFrame{
 	private JTextField textField_1;
 	
 	JLabel fileLabel = new JLabel("No file selected");
-	JTextArea logArea = new JTextArea();
+	JScrollPane logArea = new JScrollPane();
+	JTextArea logAreaB = new JTextArea();
 	
 	public ConsoleWindow() {
 		SpringLayout springLayout = new SpringLayout();
@@ -116,15 +115,12 @@ public class ConsoleWindow extends JFrame{
 			public void mousePressed(MouseEvent arg0) {
 				ArrayList<String> log = new ArrayList<String>();
 				LocationMathFinal.getAnglesForCoincidenceWithLog(FileUtils.getCoincidenceFromDataFile(file), log);
-				StringBuilder b = new StringBuilder();
+				//StringBuilder b = new StringBuilder();
+				String b = null;
 				
 				for(String s : log){
-					b.append(s + "\n");
+					logAreaB.append(s + "\n");
 				}
-				StringSelection selection = new StringSelection(b.toString());
-				Clipboard board = Toolkit.getDefaultToolkit().getSystemClipboard();
-				board.setContents(selection, null);
-				logArea.append("Copied log to clipboard");
 				
 			}
 
